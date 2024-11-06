@@ -14,8 +14,7 @@ class Quote(TypedDict):
     message: str
     time: str
 
-
-database: JSONDatabase[list[Quote]] = JSONDatabase("data/database.json")
+database: JSONDatabase[list[Quote]] = JSONDatabase("C:\\Users\\azhua\OneDrive\Desktop\WebDevStuff\\tech-deliverable\\api\data\\database.json")
 
 
 @asynccontextmanager
