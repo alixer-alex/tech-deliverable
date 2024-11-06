@@ -4,6 +4,7 @@ function App() {
 	const handleRefresh = (e)=>{
 		e.preventDefault();
 	}
+	
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}

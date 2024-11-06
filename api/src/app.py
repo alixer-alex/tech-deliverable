@@ -47,9 +47,20 @@ def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
 
 
 # TODO: add another API route with a query parameter to retrieve quotes based on max age
-@app.post("/query")
-def find_message(maxage: str = Form()) -> RedirectResponse:
+@app.get("/query/")
+async def find_message(year: str = "",month: str = "",day: str = "") -> JSON:
     
-
-    # You may modify the return value as needed to support other functionality
-    return RedirectResponse("/", status.HTTP_303_SEE_OTHER)
+    res = {quotes:[]}
+    quotes = database["quotes"]
+    if year == "" and month == "" and day == "":
+        #return all values
+        for quote in quotes:
+            res[quotes].append(quote)
+    else:
+        #return queried values
+        for quote in quotes:
+            quotetime = datetime.fromisoformat(quote["time"])
+            querytime = datetime(int(year),int(month),int(day))
+            if quotetime>querytime:
+                res[quotes].append(quote)
+    return res
