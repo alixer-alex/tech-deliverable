@@ -1,14 +1,17 @@
 import "./App.css";
 
 function App() {
+	const handleRefresh = (e)=>{
+		e.preventDefault();
+	}
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
 			<h1>Hack at UCI Tech Deliverable</h1>
-
+			<img src="./quotebook.png"/>
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form action="/api/quote" method="post">
+			<form onSubmit = {handleRefresh} action="/api/quote" method="post">
 				<label htmlFor="input-name">Name</label>
 				<input type="text" name="name" id="input-name" required />
 				<label htmlFor="input-message">Quote</label>
