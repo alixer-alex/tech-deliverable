@@ -1,10 +1,42 @@
 import "./App.css";
+import { useState,useEffect } from "react";
+
 
 function App() {
+	const [quotes, setQuotes] = useState([])
+	useEffect(()=>{
+		console.log()
+	  }
+	  ,[quotes])
+
+	const handleRefreshQ = (e)=>{
+		console.log(e.month);
+		fetch('/api/query/?monthYear='+ e.target.month.value)
+		.then(res=>res.json()
+		.then(data=>{
+			setQuotes(JSON.parse(data.quotes))
+			console.log("hello")
+			console.log(quotes)
+		}));
+	}
+	
 	const handleRefresh = (e)=>{
 		e.preventDefault();
 	}
 	
+	function Message(d) {
+
+		return (<>
+
+			<p>{d.quote}</p>
+		</>)
+	}
+	function Messages() {
+		
+		return (<>
+			{quotes.map((e)=><Message quote={e}/>)}
+		</>)
+	}
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -23,9 +55,12 @@ function App() {
 			<h2>Previous Quotes</h2>
 			{/* TODO: Display the actual quotes from the database */}
 			<div className="messages">
-				<p>Peter Anteater</p>
-				<p>Zot Zot Zot!</p>
-				<p>Every day</p>
+				<form onSubmit = {handleRefreshQ} action="/query/" method="get">
+					<label htmlFor="input-name">Year</label>
+					<input type="month" name="month" id="input-month" />
+					<button type="submit">Submit</button>
+				</form>
+				<Messages />
 			</div>
 		</div>
 	);
