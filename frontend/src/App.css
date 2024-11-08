@@ -1,3 +1,42 @@
 *{
     text-align: center;
+    word-wrap: break-word;
+
+    
 }
+body{
+    background: linear-gradient(to top, #5da3ff 0%, #d1ebff 100%);
+    font-family:cursive;
+}
+.App{
+    padding-left: 10px;
+    padding-right:10px;
+    
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.messages{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.input{
+    height: 20px;
+}
+.submit:hover{
+    color:#000000;
+}   
+.submit{
+    background-color: #e6effa;
+    border:#e6effa;
+    font-size: small;
+    font-family:cursive;
+    
+    border-radius: 2px;
+} 
+
+.image{
+    padding-right: 2px;
+}
+
+
