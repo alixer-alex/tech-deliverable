@@ -1,31 +1,14 @@
 import "./App.css";
-import { useState,useEffect } from "react";
+import "./quotes.jsx"
+import ListQuotes from "./quotes.jsx";
+
 
 
 function App() {
-	const [query, setQuery] = useState("");
-	const [quotes, setQuotes] = useState([]);
-	useEffect(()=>{
-		fetch('/api/query/?monthYear='+ query )
-		.then(res=>res.json()
-		.then(data=>{
-			setQuotes(data.quotes)
-		}));
-	  }
-	  ,[query])
-
-	const handleRefreshQ = (e)=>{
-		e.preventDefault();
-		setQuery(e.target.month.value)
-
-	}
-	
 	const handleRefresh = (e)=>{
 		e.preventDefault();
 	}
-	function Quotes(e){
-		return <p>"{e.quote.message}"</p>
-	}
+
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -43,14 +26,7 @@ function App() {
 
 			<h2>Previous Quotes</h2>
 			{/* TODO: Display the actual quotes from the database */}
-			<div className="messages">
-				<form className= "input" onSubmit = {handleRefreshQ} action="/query/" method="get">
-					<label htmlFor="input-name">Year </label>
-					<input type="month" name="month" id="input-month" />
-					<button type="submit" className="submit">Submit </button>
-				</form>
-				{quotes.map((e)=><Quotes quote={e}/>)}
-			</div>
+			<ListQuotes />
 		</div>
 	);
 }
