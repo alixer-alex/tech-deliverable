@@ -69,5 +69,4 @@ async def find_message(monthYear: str = ""):
             querytime = datetime(int(year),int(month),1)
             if quotetime>querytime:
                 res["quotes"].append(quote)
-    print(res)
     return res

@@ -3,45 +3,34 @@ import { useState,useEffect } from "react";
 
 
 function App() {
-	const [quotes, setQuotes] = useState([])
+	const [query, setQuery] = useState("");
+	const [quotes, setQuotes] = useState([]);
 	useEffect(()=>{
-		console.log()
-	  }
-	  ,[quotes])
-
-	const handleRefreshQ = (e)=>{
-		console.log(e.month);
-		fetch('/api/query/?monthYear='+ e.target.month.value)
+		fetch('/api/query/?monthYear='+ query )
 		.then(res=>res.json()
 		.then(data=>{
-			setQuotes(JSON.parse(data.quotes))
-			console.log("hello")
-			console.log(quotes)
+			setQuotes(data.quotes)
 		}));
+	  }
+	  ,[query])
+
+	const handleRefreshQ = (e)=>{
+		e.preventDefault();
+		setQuery(e.target.month.value)
+
 	}
 	
 	const handleRefresh = (e)=>{
 		e.preventDefault();
 	}
-	
-	function Message(d) {
-
-		return (<>
-
-			<p>{d.quote}</p>
-		</>)
-	}
-	function Messages() {
-		
-		return (<>
-			{quotes.map((e)=><Message quote={e}/>)}
-		</>)
+	function Quotes(e){
+		return <p>"{e.quote.message}"</p>
 	}
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
-			<h1>Hack at UCI Tech Deliverable</h1>
 			<img src="./quotebook.png"/>
+			<h1>Hack at UCI Tech Deliverable</h1>
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
 			<form onSubmit = {handleRefresh} action="/api/quote" method="post">
@@ -60,7 +49,7 @@ function App() {
 					<input type="month" name="month" id="input-month" />
 					<button type="submit">Submit</button>
 				</form>
-				<Messages />
+				{quotes.map((e)=><Quotes quote={e}/>)}
 			</div>
 		</div>
 	);
