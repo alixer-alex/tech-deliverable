@@ -16,7 +16,7 @@ class Quote(TypedDict):
 class Response(BaseModel):
     name: str
     message: str
-database: JSONDatabase[list[Quote]] = JSONDatabase("C:\\Users\\azhua\OneDrive\Desktop\WebDevStuff\\tech-deliverable\\api\data\\database.json")
+database: JSONDatabase[list[Quote]] = JSONDatabase("data/database.json")
 
 
 @asynccontextmanager
