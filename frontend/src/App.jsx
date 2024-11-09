@@ -1,34 +1,14 @@
 import "./App.css";
 import "./quotes.jsx"
 import ListQuotes from "./quotes.jsx";
-import axios from 'axios'
 import { useState,useEffect } from "react";
+import Submit from "./submit.jsx";
 function App() {
 	const [name,setName] = useState("")
 	const [message,setMessage] = useState("")
-	useEffect(()=>{
-		if(name != "" && message != ""){
-			axios.post('/api/quote',{
-				name: name,
-				message:message
-			})
-			.then(function (response) {
-				console.log(response);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-		}}
-		,[name,message])
-		
-	const handleRefresh = (e)=>{
-		
-		console.log(e.target.message.value)
-		setName(e.target.name.value)
-		setMessage(e.target.message.value)
-		
-	}
-
+    const [query, setQuery] = useState("");
+	const [quotes, setQuotes] = useState([]);
+	const [update, setUpdate] = useState(false);
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -36,17 +16,10 @@ function App() {
 			<h1>Hack at UCI Tech Deliverable</h1>
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form className= "input" onSubmit = {handleRefresh}>
-				<label htmlFor="input-name">Name </label>
-				<input type="text" name="name" id="input-name" required />
-				<label htmlFor="input-message">  Quote  </label>
-				<input type="text" name="message" id="input-message" required />
-				<button type="submit" className="submit">Submit</button>
-			</form>
-
+			<Submit  name={name} message={message} setName = {setName} setMessage={setMessage} update={update} setUpdate={setUpdate} />
 			<h2>Previous Quotes</h2>
 			{/* TODO: Display the actual quotes from the database */}
-			<ListQuotes />
+			<ListQuotes query = {query} setQuery={setQuery} quotes={quotes} setQuotes={setQuotes} update={update} setUpdate={setUpdate}/>
 		</div>
 	);
 }

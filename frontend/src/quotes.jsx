@@ -1,10 +1,9 @@
 import { useState,useEffect } from "react";
-export default function ListQuotes(){
+export default function ListQuotes({quotes,setQuotes, query, setQuery,update, setUpdate}){
     function Quotes(e){
 		return <p>"{e.quote.message}"</p>
 	}
-    const [query, setQuery] = useState("");
-	const [quotes, setQuotes] = useState([]);
+
     /*
         Default is displaying all quotes
         When submitted, the query is set and then the useEffect is called because query changes
@@ -16,7 +15,7 @@ export default function ListQuotes(){
 		.then(data=>{
 			setQuotes(data.quotes)
 		}));
-        console.log("isthisbeingcalled");
+        console.log(update);
 	  }
 	  ,[query])
 
