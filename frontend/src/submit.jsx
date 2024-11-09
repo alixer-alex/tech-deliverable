@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useState,useEffect } from "react";
 export default function Submit({name,  message, setName,setMessage, update, setUpdate}){
-
+    /*
+    Updates setUpdate so the api call is called again
+    */ 
 	useEffect(()=>{
 		if(name != "" && message != ""){
 			axios.post('/api/quote',{
