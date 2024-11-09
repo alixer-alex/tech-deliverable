@@ -1,12 +1,32 @@
 import "./App.css";
 import "./quotes.jsx"
 import ListQuotes from "./quotes.jsx";
-
-
-
+import axios from 'axios'
+import { useState,useEffect } from "react";
 function App() {
+	const [name,setName] = useState("")
+	const [message,setMessage] = useState("")
+	useEffect(()=>{
+		if(name != "" && message != ""){
+			axios.post('/api/quote',{
+				name: name,
+				message:message
+			})
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		}}
+		,[name,message])
+		
 	const handleRefresh = (e)=>{
-		e.preventDefault();
+		
+		console.log(e.target.message.value)
+		setName(e.target.name.value)
+		setMessage(e.target.message.value)
+		
 	}
 
 	return (
@@ -16,7 +36,7 @@ function App() {
 			<h1>Hack at UCI Tech Deliverable</h1>
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form className= "input" onSubmit = {handleRefresh} action="/api/quote" method="post">
+			<form className= "input" onSubmit = {handleRefresh}>
 				<label htmlFor="input-name">Name </label>
 				<input type="text" name="name" id="input-name" required />
 				<label htmlFor="input-message">  Quote  </label>

@@ -16,6 +16,7 @@ export default function ListQuotes(){
 		.then(data=>{
 			setQuotes(data.quotes)
 		}));
+        console.log("isthisbeingcalled");
 	  }
 	  ,[query])
 

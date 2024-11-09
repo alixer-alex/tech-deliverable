@@ -7,13 +7,15 @@ from fastapi.responses import RedirectResponse
 from typing_extensions import TypedDict
 
 from services.database import JSONDatabase
-
+from pydantic import BaseModel
 
 class Quote(TypedDict):
     name: str
     message: str
     time: str
-
+class Response(BaseModel):
+    name: str
+    message: str
 database: JSONDatabase[list[Quote]] = JSONDatabase("C:\\Users\\azhua\OneDrive\Desktop\WebDevStuff\\tech-deliverable\\api\data\\database.json")
 
 
@@ -33,11 +35,14 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/quote")
-def post_message(name: str = Form(), message: str = Form()) -> RedirectResponse:
+def post_message(Response:Response) -> RedirectResponse:
     """
     Process a user submitting a new quote.
     You should not modify this function except for the return value.
     """
+    name=Response.name
+    message=Response.message
+    print(name,message)
     now = datetime.now()
     quote = Quote(name=name, message=message, time=now.isoformat(timespec="seconds"))
     database["quotes"].append(quote)
