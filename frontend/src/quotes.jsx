@@ -17,7 +17,7 @@ export default function ListQuotes({quotes,setQuotes, query, setQuery,update, se
 		}));
         console.log(update);
 	  }
-	  ,[query])
+	  ,[query, update])
 
 	const handleRefreshQ = (e)=>{
 		e.preventDefault();
